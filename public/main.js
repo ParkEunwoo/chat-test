@@ -13,5 +13,6 @@ socket.on('chat message', (msg) => {
     const li = document.createElement("li");
     li.appendChild(document.createTextNode(msg));
     chat.appendChild(li);
+    chat.scrollTop = chat.offsetHeight;
 });
 //# sourceMappingURL=main.js.map

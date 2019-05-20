@@ -17,4 +17,5 @@ socket.on('chat message', (msg) => {
     const li: HTMLLIElement = (<HTMLLIElement>document.createElement("li"));
     li.appendChild(document.createTextNode(msg));
     chat.appendChild(li);
+    chat.scrollTop = chat.offsetHeight;
 });
