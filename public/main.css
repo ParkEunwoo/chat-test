@@ -1,0 +1,56 @@
+html, body {
+    margin: 0;
+    padding: 0;
+}
+body {
+    font: 1rem Helvetica, Arial;
+}
+
+#room {
+    margin-left: 20px;
+    max-width: 800px;
+    display: flex;
+    flex-direction: column;
+    height: 80vh;
+}
+h1 {
+    color: #2c3e50;
+}
+form {
+    border: 1px solid #95a5a6;
+    display: flex;
+    padding-left: .8em;
+}
+
+form input {
+    border: none;
+    outline: none;
+    flex-grow: 1;
+    font-size: 1.2rem;
+}
+
+form button {
+    border: none;
+    outline: none;
+    padding: .4em .6em;
+    background: #3498db;
+    color: white;
+    font-size: 1.2rem;
+}
+form button:hover {
+    background: #2980b9;
+    color: #ecf0f1;
+}
+
+#messages {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    flex-grow: 1;
+}
+#messages li {
+    padding: 5px 10px;
+}
+#messages li:nth-child(odd) {
+    background: #eee;
+}
