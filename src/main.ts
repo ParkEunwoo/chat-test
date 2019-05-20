@@ -7,7 +7,7 @@ form.onsubmit = e => {
     e.preventDefault();
     const input: HTMLInputElement = (<HTMLInputElement>document.getElementById("m"));
     const text: string = input.value;
-    socket.emit('chat message', text);
+    text=='' || socket.emit('chat message', text);
     input.value = '';
     return false;
 };
