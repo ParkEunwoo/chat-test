@@ -5,13 +5,30 @@ html, body {
 body {
     font: 1rem Helvetica, Arial;
 }
-
-#room {
+.plus {
+    margin-top: 20px;
     margin-left: 20px;
-    max-width: 800px;
+    font-size: 2em;
+    width: 1.6em;
+    height: 1.6em;
+    background: #9b59b6;
+    color: white;
+    border: none;
+    outline: none;
+    border-radius: 50%;
+}
+.container {
+    display: flex;
+}
+
+.room {
+    margin-top: 20px;
+    margin-left: 20px;
+    max-width: 400px;
     display: flex;
     flex-direction: column;
-    height: 80vh;
+    height: 500px;
+    box-shadow: 0 0 10px #34495e;
 }
 h1 {
     color: #2c3e50;
@@ -42,16 +59,16 @@ form button:hover {
     color: #ecf0f1;
 }
 
-#messages {
+.messages {
     list-style-type: none;
     margin: 0;
     padding: 0;
     flex-grow: 1;
     overflow-y: scroll;
 }
-#messages li {
+.messages li {
     padding: 5px 10px;
 }
-#messages li:nth-child(odd) {
+.messages li:nth-child(odd) {
     background: #eee;
 }

@@ -26,7 +26,6 @@ io.on('connection', (socket) => {
     socket.broadcast.emit('hi');
 });
 
-
 http.listen(3000, () => {
     console.log("listening on port 3000");
 });

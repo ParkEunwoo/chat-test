@@ -1,11 +1,12 @@
+//const _name: string = prompt("이름을 입력하세요");
 const socket = io();
-const form = document.getElementById("form");
-const chat = document.getElementById("messages");
+const form = document.querySelector('form');
+const chat = document.querySelector('.messages');
 form.onsubmit = e => {
     e.preventDefault();
-    const input = document.getElementById("m");
+    const input = document.querySelector('.m');
     const text = input.value;
-    text == '' || socket.emit('chat message', text);
+    text == '' || socket.emit('chat message', `: ${text}`);
     input.value = '';
     return false;
 };
