@@ -6,7 +6,7 @@ app.use(express.static('public'));
 app.get('/', (req, res) => {
     res.sendFile(__dirname + '/index.html');
 });
-const room = ['room1', 'room2'];
+const room = [];
 io.emit('some event', { for: 'everyone' });
 io.on('connection', (socket) => {
     console.log('a user connected');
@@ -15,6 +15,9 @@ io.on('connection', (socket) => {
             console.log(name + ' leave a ' + room[num]);
             io.to(room[num]).emit('leaveRoom', num, name);
         });
+    });
+    socket.on('createRoom', (num) => {
+        room.push("room" + num);
     });
     socket.on('joinRoom', (num, name) => {
         socket.join(room[num], () => {

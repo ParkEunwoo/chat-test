@@ -10,25 +10,41 @@ const form: Array<HTMLFormElement> = [];
 let roomNum = 0;
 
 const createRoom = () => {
+    const number: number = roomNum;
     const room: HTMLDivElement = (<HTMLDivElement>document.createElement("div"));
     room.classList.add("room");
     const title: HTMLHeadingElement = (<HTMLHeadingElement>document.createElement("h1"));
-    title.innerText = "room" + roomNum;
+    title.innerText = "room" + number;
     chat.push(<HTMLUListElement>document.createElement("ul"));
-    chat[roomNum].classList.add("messages");
+    chat[number].classList.add("messages");
     form.push(<HTMLFormElement>document.createElement("form"));
     const input: HTMLInputElement = (<HTMLInputElement>document.createElement("input"));
     input.classList.add("m");
     input.type = "text";
-    form[roomNum].appendChild(input);
+    form[number].appendChild(input);
     const button: HTMLButtonElement = (<HTMLButtonElement>document.createElement("button"));
     button.innerText = "Send";
-    form[roomNum].appendChild(button);
+    form[number].appendChild(button);
 
+    form[number].onclick = e => {
+        joinedRoom = number;
+        socket.emit('joinRoom', joinedRoom, _name);
+    }
+
+    form[number].onsubmit = e => {
+        e.preventDefault();
+        const text: string = e.target[0].value;
+        text=='' || socket.emit('chat message', joinedRoom, _name, text);
+        e.target[0].value = '';
+        
+        return false;
+    };
+    
     room.appendChild(title);
-    room.appendChild(chat[roomNum]);
-    room.appendChild(form[roomNum]);
+    room.appendChild(chat[number]);
+    room.appendChild(form[number]);
     container.appendChild(room);
+    socket.emit('createRoom', number);
     roomNum++;
 }
 
@@ -39,44 +55,9 @@ plus.onclick = e => {
 let joinedRoom: number = 0;
 
 
-const form1: HTMLFormElement = (<HTMLFormElement>document.getElementById('room1'));
-const chat1: HTMLUListElement = (<HTMLUListElement>document.getElementById('messages1'));
-
-const form2: HTMLFormElement = (<HTMLFormElement>document.getElementById('room2'));
-const chat2: HTMLUListElement = (<HTMLUListElement>document.getElementById('messages2'));
-
-form1.onclick = e => {
-    joinedRoom = 0;
-    socket.emit('joinRoom', joinedRoom, _name);
-}
-
-form1.onsubmit = e => {
-    e.preventDefault();
-    const input: HTMLInputElement = (<HTMLInputElement>document.getElementById('m1'));
-    const text: string = input.value;
-    text=='' || socket.emit('chat message', joinedRoom, _name, text);
-    input.value = '';
-    return false;
-};
-
-form2.onclick = e => {
-    joinedRoom = 1;
-    socket.emit('joinRoom', joinedRoom, _name);
-}
-
-form2.onsubmit = e => {
-    e.preventDefault();
-    const input: HTMLInputElement = (<HTMLInputElement>document.getElementById('m2'));
-    const text: string = input.value;
-    text=='' || socket.emit('chat message', joinedRoom, _name, text);
-    input.value = '';
-    return false;
-};
-
-
 socket.on('chat message', (name:string, msg: string) => {
     const li: HTMLLIElement = (<HTMLLIElement>document.createElement("li"));
     li.appendChild(document.createTextNode(name + " : " + msg));
-    joinedRoom ? chat2.appendChild(li) : chat1.appendChild(li);
-    joinedRoom ? chat2.scrollTop = chat2.offsetHeight : chat1.scrollTop = chat1.offsetHeight;
+    chat[joinedRoom].appendChild(li);
+    chat[joinedRoom].scrollTop = chat[joinedRoom].offsetHeight;
 });
